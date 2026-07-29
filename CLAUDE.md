@@ -123,18 +123,19 @@ Webapp gratuita e multi-device per tenere traccia delle serie TV guardate
 - **Icona app**: cuori blu e viola su un divano in stile illustrazione
   glossy/3D. Varianti derivate perché il divano intero non si legge sotto
   i ~40px:
-  - `public/favicon.png` — **crop stretto della sola coppia di cuori**
-    (pixel reali dell'artwork, non un disegno vettoriale a mano), su
-    sfondo `accent-solid` pieno con lo stesso angolo arrotondato del
-    vecchio `favicon.svg` (~22% di raggio, per continuità visiva), usata
-    per il tab del browser (`<link rel="icon">` in `index.html`).
-    Sostituisce un precedente `favicon.svg` con cuori ridisegnati a mano:
-    verificato (script Python/PIL, confronto a 16/32/48px) che la scena
-    intera divano+cuori diventa illeggibile a quelle dimensioni (da cui
-    la regola "non sotto i 40px"), ma un crop **stretto sui soli cuori**
-    resta leggibile anche a 16px — non serve ridisegnare una forma
-    semplificata da zero, basta ritagliare più da vicino la stessa
-    artwork reale.
+  - `public/favicon-16.png`/`favicon-32.png` — dedicated pre-sized crops of
+    the heart pair (same "crop tight on just the hearts" idea as the
+    original single `favicon.png`, since the full sofa+hearts scene isn't
+    legible under ~40px), one file per exact pixel size instead of one file
+    scaled by the browser. Referenced with explicit `sizes="16x16"`/
+    `"32x32"` (`<link rel="icon">`, two tags, in `index.html`) so each
+    browser picks the exact match instead of downscaling a single source.
+    Replaces the earlier single `favicon.png` (crop stretto della sola
+    coppia di cuori, sfondo `accent-solid` pieno, ~22% di raggio per
+    continuità visiva col vecchio `favicon.svg` disegnato a mano) — quel
+    file resta nel repo ma non è più referenziato da nessuna parte
+    dell'app; se non serve più a nulla può essere rimosso in un secondo
+    momento.
   - `public/icon-192.png`/`icon-512.png` — **artwork illustrata** (non un
     export da un SVG vettoriale: sono l'immagine sorgente originale,
     fornita/curata direttamente dall'utente, sfondo **trasparente**
