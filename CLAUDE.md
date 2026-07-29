@@ -212,6 +212,24 @@ Webapp gratuita e multi-device per tenere traccia delle serie TV guardate
     (Bugzilla #1440661, #1234558), non risolvibile lato nostro
     manifest/codice. Non provare a "correggerlo" di nuovo: non è un
     problema della nostra configurazione.
+  - **Scorciatoie app (`"shortcuts"` in `manifest.json`)**: tre voci —
+    "Ciucio" (`./#/?viewer=purple`), "Lu" (`./#/?viewer=blue`) e
+    "Calendario" (`./#/calendario`), ciascuna con la propria icona
+    192×192 dedicata (`ciucio-192.png`/`lu-192.png`/`calendario-192.png`)
+    e una `description` breve. L'URL di ognuna include esplicitamente
+    l'`#/` di `HashRouter` (`./#/?viewer=blue`, non `./?viewer=blue`):
+    senza l'hash il browser aprirebbe solo la root con una query string
+    che il router non legge mai, dato che `HashRouter` prende
+    path/query esclusivamente da `location.hash`. **Le scorciatoie sono
+    una funzione del sistema operativo, non del browser**: compaiono solo
+    tenendo premuta (Android) o cliccando col destro (desktop) l'icona di
+    un'app **già installata** (aggiunta alla schermata Home/desktop) — non
+    fanno nulla e non sono visibili da una scheda del browser normale. Se
+    non compaiono su un'installazione già esistente dopo una modifica
+    a questa lista, il sistema operativo potrebbe aver già messo in cache
+    il manifest precedente: disinstallare e reinstallare la PWA di solito
+    risolve, non è un problema del manifest in sé se la sintassi è
+    valida.
 - **Calendario** (`src/pages/Calendar.jsx` + `src/lib/schedule.js`), griglia
   mensile (lun-dom, navigazione libera avanti/indietro):
   - Ogni serie ha un campo opzionale `watchDays` (giorni della settimana in

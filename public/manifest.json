@@ -35,34 +35,37 @@
   "shortcuts": [
     { "name": "Ciucio",
       "short_name": "Ciucio",
-      "description": "Add description here",
+      "description": "Serie che guarda solo Ciucio",
       "url": "./#/?viewer=purple",
       "icons": [
         {
           "src": "ciucio-192.png",
-          "sizes": "192x192"
+          "sizes": "192x192",
+          "type": "image/png"
         }
       ]
     },
     { "name": "Lu",
       "short_name": "Lu",
-      "description": "Add description here",
+      "description": "Serie che guarda solo Lu",
       "url": "./#/?viewer=blue",
       "icons": [
         {
           "src": "lu-192.png",
-          "sizes": "192x192"
+          "sizes": "192x192",
+          "type": "image/png"
         }
       ]
     },
     { "name": "Calendario",
       "short_name": "Calendario",
-      "description": "Add description here",
+      "description": "Calendario delle serie da guardare",
       "url": "./#/calendario",
       "icons": [
         {
           "src": "calendario-192.png",
-          "sizes": "192x192"
+          "sizes": "192x192",
+          "type": "image/png"
         }
       ]
     }
