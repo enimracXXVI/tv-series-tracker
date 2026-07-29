@@ -213,23 +213,46 @@ Webapp gratuita e multi-device per tenere traccia delle serie TV guardate
     manifest/codice. Non provare a "correggerlo" di nuovo: non è un
     problema della nostra configurazione.
   - **Scorciatoie app (`"shortcuts"` in `manifest.json`)**: tre voci —
-    "Ciucio" (`./#/?viewer=purple`), "Lu" (`./#/?viewer=blue`) e
-    "Calendario" (`./#/calendario`), ciascuna con la propria icona
-    192×192 dedicata (`ciucio-192.png`/`lu-192.png`/`calendario-192.png`)
-    e una `description` breve. L'URL di ognuna include esplicitamente
-    l'`#/` di `HashRouter` (`./#/?viewer=blue`, non `./?viewer=blue`):
-    senza l'hash il browser aprirebbe solo la root con una query string
-    che il router non legge mai, dato che `HashRouter` prende
-    path/query esclusivamente da `location.hash`. **Le scorciatoie sono
-    una funzione del sistema operativo, non del browser**: compaiono solo
-    tenendo premuta (Android) o cliccando col destro (desktop) l'icona di
-    un'app **già installata** (aggiunta alla schermata Home/desktop) — non
-    fanno nulla e non sono visibili da una scheda del browser normale. Se
-    non compaiono su un'installazione già esistente dopo una modifica
-    a questa lista, il sistema operativo potrebbe aver già messo in cache
-    il manifest precedente: disinstallare e reinstallare la PWA di solito
-    risolve, non è un problema del manifest in sé se la sintassi è
-    valida.
+    "Ciucio" (guarda solo 💜), "Lu" (guarda solo 💙) e "Calendario",
+    ciascuna con la propria icona 192×192 dedicata
+    (`ciucio-192.png`/`lu-192.png`/`calendario-192.png`) e una
+    `description` breve. **Le scorciatoie sono una funzione del sistema
+    operativo, non del browser**: compaiono solo tenendo premuta
+    (Android) o cliccando col destro (desktop) l'icona di un'app **già
+    installata** (aggiunta alla schermata Home/desktop) — non fanno
+    nulla e non sono visibili da una scheda del browser normale. Se non
+    compaiono su un'installazione già esistente dopo una modifica a
+    questa lista, il sistema operativo potrebbe aver già messo in cache
+    il manifest precedente: disinstallare e reinstallare la PWA di
+    solito risolve, non è un problema del manifest in sé se la sintassi
+    è valida.
+  - **URL delle scorciatoie: `?go=calendario`/`?go=blue`/`?go=purple`,
+    non un `#/...` diretto** — bug reale (non ancora del tutto risolto
+    con certezza, ma la causa più probabile trovata finora): la prima
+    versione puntava direttamente a `./#/calendario` ecc., sintatticamente
+    corretto (stesso URL prodotto da un click interno all'app) e
+    verificato funzionante da un caricamento diretto in un browser
+    normale — ma toccando la scorciatoia da un'icona Android
+    **installata** (WebAPK), il menu a pressione lunga mostrava
+    correttamente nome/icona di ogni voce, però toccare una scorciatoia
+    non faceva nulla. Il percorso nativo Android→WebAPK che genera
+    l'Intent per il tap ha problemi noti, dipendenti dalla versione, nel
+    preservare il frammento `#` di un URL — proprio la parte che
+    `HashRouter` legge per scegliere la route. Una query string vera
+    (`?go=...`, prima di qualsiasi `#`) non ha questo problema: è parte
+    dell'URL "base", non del frammento, quindi sopravvive in modo
+    uniforme a Intent/WebAPK/browser. Uno script inline sincrono in
+    `index.html` (prima dello `<script type="module">` che carica
+    l'app, così gira per primo) legge `?go=` e imposta
+    `window.location.hash` di conseguenza **prima** che `HashRouter`
+    monti — verificato con Playwright su una build di produzione locale
+    che `?go=calendario`/`blue`/`purple` producono rispettivamente
+    `#/calendario`, `#/?viewer=blue`, `#/?viewer=purple` e che l'app
+    reagisce di conseguenza (es. il filtro 💙 nell'header risulta
+    attivo). Se si aggiunge una nuova scorciatoia in futuro, seguire
+    lo stesso pattern (`?go=<chiave>` nel manifest + voce nella mappa
+    dentro lo script in `index.html`), non tornare a un `#/...` diretto
+    nell'URL della scorciatoia.
 - **Calendario** (`src/pages/Calendar.jsx` + `src/lib/schedule.js`), griglia
   mensile (lun-dom, navigazione libera avanti/indietro):
   - Ogni serie ha un campo opzionale `watchDays` (giorni della settimana in

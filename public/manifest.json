@@ -36,7 +36,7 @@
     { "name": "Ciucio",
       "short_name": "Ciucio",
       "description": "Serie che guarda solo Ciucio",
-      "url": "./#/?viewer=purple",
+      "url": "./?go=purple",
       "icons": [
         {
           "src": "ciucio-192.png",
@@ -48,7 +48,7 @@
     { "name": "Lu",
       "short_name": "Lu",
       "description": "Serie che guarda solo Lu",
-      "url": "./#/?viewer=blue",
+      "url": "./?go=blue",
       "icons": [
         {
           "src": "lu-192.png",
@@ -60,7 +60,7 @@
     { "name": "Calendario",
       "short_name": "Calendario",
       "description": "Calendario delle serie da guardare",
-      "url": "./#/calendario",
+      "url": "./?go=calendario",
       "icons": [
         {
           "src": "calendario-192.png",

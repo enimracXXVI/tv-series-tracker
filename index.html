@@ -10,6 +10,26 @@
     <meta name="theme-color" content="#4f46e5" />
     <meta name="description" content="Tieni traccia delle serie TV che stai guardando, stagione per stagione, episodio per episodio." />
     <title>TV Series Tracker</title>
+    <script>
+      // App shortcuts (manifest.json "shortcuts") deep-link via a plain
+      // "?go=" query param instead of directly embedding a "#/..." hash in
+      // their target url. Android's WebAPK shortcut-launch path has known,
+      // version-dependent issues preserving a URL fragment through the
+      // native Intent it builds for the tap (the fragment is exactly the
+      // part HashRouter needs to pick the right route) — a real query
+      // string, part of the URL before any "#", isn't subject to that and
+      // survives every layer (Intent, WebAPK manifest, browser) uniformly.
+      // This runs as a plain synchronous script, before the deferred
+      // module script below, so HashRouter reads the translated hash on
+      // its very first mount instead of racing it.
+      (function () {
+        var go = new URLSearchParams(window.location.search).get('go')
+        var target = { calendario: '/calendario', blue: '/?viewer=blue', purple: '/?viewer=purple' }[go]
+        if (target && !window.location.hash) {
+          window.location.hash = target
+        }
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>
