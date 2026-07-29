@@ -32,4 +32,39 @@
       "purpose": "maskable"
     }
   ]
+  "shortcuts": [
+    { "name": "Ciucio",
+      "short_name": "Ciucio",
+      "description": "Add description here",
+      "url": "./?viewer=purple",
+      "icons": [
+        {
+          "src": "ciucio-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    { "name": "Lu",
+      "short_name": "Lu",
+      "description": "Add description here",
+      "url": "./?viewer=blue",
+      "icons": [
+        {
+          "src": "lu-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    { "name": "Calendario",
+      "short_name": "Calendario",
+      "description": "Add description here",
+      "url": "./calendario",
+      "icons": [
+        {
+          "src": "calendario-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
 }
